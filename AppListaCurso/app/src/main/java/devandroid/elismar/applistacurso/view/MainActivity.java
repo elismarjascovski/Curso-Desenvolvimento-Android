@@ -4,6 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import devandroid.elismar.applistacurso.R;
 import devandroid.elismar.applistacurso.model.Pessoa;
@@ -11,7 +15,13 @@ import devandroid.elismar.applistacurso.model.Pessoa;
 public class MainActivity extends AppCompatActivity {
 
     Pessoa pessoa;
-    String dadosPessoa;
+    EditText editPrimeiroNome;
+    EditText editSobrenome;
+    EditText editCurso;
+    EditText editTelefone;
+    Button btnLimpar;
+    Button btnSalvar;
+    Button btnFinalizar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,20 +32,49 @@ public class MainActivity extends AppCompatActivity {
         pessoa.setPrimeiroNome("Elismar");
         pessoa.setSobrenome("Jascovski");
         pessoa.setCursoDesejado("Android");
-        pessoa.setTelefoneContato("(62)-99918-7777");
+        pessoa.setTelefoneContato("(62) 99918-7777");
 
-        dadosPessoa = "Primeiro nome: ";
-        dadosPessoa += pessoa.getPrimeiroNome();
-        dadosPessoa += " Sobrenome: ";
-        dadosPessoa += pessoa.getSobrenome();
-        dadosPessoa += " Curso Desejado: ";
-        dadosPessoa += pessoa.getCursoDesejado();
-        dadosPessoa += " Telefone: ";
-        dadosPessoa += pessoa.getTelefoneContato();
+        editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
+        editSobrenome = findViewById(R.id.editSobrenome);
+        editTelefone = findViewById(R.id.editTelefone);
+        editCurso = findViewById(R.id.editCurso);
 
-        Log.i("POOAndroid", pessoa.toString());
+        btnLimpar = findViewById(R.id.btnLimpar);
+        btnSalvar = findViewById(R.id.btnSalvar);
+        btnFinalizar = findViewById(R.id.btnFinalizar);
 
-        int parada = 0;
+        editPrimeiroNome.setText(pessoa.getPrimeiroNome());
+        editSobrenome.setText(pessoa.getSobrenome());
+        editCurso.setText(pessoa.getCursoDesejado());
+        editTelefone.setText(pessoa.getTelefoneContato());
+
+        btnLimpar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                editPrimeiroNome.setText("");
+                editSobrenome.setText("");
+                editCurso.setText("");
+                editTelefone.setText("");
+            }
+        });
+
+        btnSalvar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pessoa.setPrimeiroNome(editPrimeiroNome.getText().toString());
+                pessoa.setSobrenome(editSobrenome.getText().toString());
+                pessoa.setCursoDesejado(editCurso.getText().toString());
+                pessoa.setTelefoneContato(editTelefone.getText().toString());
+            }
+        });
+
+        btnFinalizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainActivity.this, "Volte sempre", Toast.LENGTH_LONG).show();
+                finish();
+            }
+        });
 
     }
 }
