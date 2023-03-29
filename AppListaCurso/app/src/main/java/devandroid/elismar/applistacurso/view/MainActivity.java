@@ -16,9 +16,6 @@ import devandroid.elismar.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
-    SharedPreferences preferences;
-    SharedPreferences.Editor listaCurso;
-    public static final String  NOME_PREFERENCES = "pref_listacurso";
     PessoaController pessoaController;
     Pessoa pessoa;
     EditText editPrimeiroNome;
@@ -34,17 +31,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
-        listaCurso = preferences.edit();
-
-        pessoaController = new PessoaController();
+        pessoaController = new PessoaController(MainActivity.this);
         pessoaController.toString();
 
         pessoa = new Pessoa();
-        pessoa.setPrimeiroNome(preferences.getString("primeiroNome", ""));
-        pessoa.setSobrenome(preferences.getString("sobrenome", ""));
-        pessoa.setCursoDesejado(preferences.getString("cursoDesejado", ""));
-        pessoa.setTelefoneContato(preferences.getString("telefoneContato", ""));
+        pessoaController.buscar(pessoa);
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenome = findViewById(R.id.editSobrenome);
@@ -69,10 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 editCurso.setText("");
                 editTelefone.setText("");
 
-                Toast.makeText(MainActivity.this, "Dados excluídos", Toast.LENGTH_LONG).show();
-
-                listaCurso.clear();
-                listaCurso.apply();
+                pessoaController.limpar();
             }
         });
 
@@ -85,13 +73,6 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setTelefoneContato(editTelefone.getText().toString());
 
                 Toast.makeText(MainActivity.this, "Dados salvos", Toast.LENGTH_LONG).show();
-
-                listaCurso.putString("primeiroNome", pessoa.getPrimeiroNome());
-                listaCurso.putString("sobrenome", pessoa.getSobrenome());
-                listaCurso.putString("cursoDesejado", pessoa.getCursoDesejado());
-                listaCurso.putString("telefoneContato", pessoa.getTelefoneContato());
-                listaCurso.apply();
-
                 pessoaController.salvar(pessoa);
             }
         });
