@@ -1,8 +1,10 @@
-package devandroid.elismar.applistacurso;
+package devandroid.elismar.applistacurso.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import devandroid.elismar.applistacurso.R;
 
 public class MainActivity extends AppCompatActivity {
 
