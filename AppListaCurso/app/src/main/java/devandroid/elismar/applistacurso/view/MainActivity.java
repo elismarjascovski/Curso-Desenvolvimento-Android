@@ -10,10 +10,12 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import devandroid.elismar.applistacurso.R;
+import devandroid.elismar.applistacurso.controller.PessoaController;
 import devandroid.elismar.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
+    PessoaController pessoaController;
     Pessoa pessoa;
     EditText editPrimeiroNome;
     EditText editSobrenome;
@@ -27,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        pessoaController = new PessoaController();
 
         pessoa = new Pessoa();
         pessoa.setPrimeiroNome("Elismar");
@@ -65,6 +69,10 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setSobrenome(editSobrenome.getText().toString());
                 pessoa.setCursoDesejado(editCurso.getText().toString());
                 pessoa.setTelefoneContato(editTelefone.getText().toString());
+
+                Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
+
+                pessoaController.salvar(pessoa);
             }
         });
 
