@@ -2,6 +2,7 @@ package devandroid.elismar.applistacurso.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,8 @@ import devandroid.elismar.applistacurso.model.Pessoa;
 
 public class MainActivity extends AppCompatActivity {
 
+    SharedPreferences preferences;
+    public static final String  NOME_PREFERENCES = "pref_listacurso";
     PessoaController pessoaController;
     Pessoa pessoa;
     EditText editPrimeiroNome;
@@ -29,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        preferences = getSharedPreferences(NOME_PREFERENCES, 0);
+        SharedPreferences.Editor listaCurso = preferences.edit();
 
         pessoaController = new PessoaController();
 
@@ -71,6 +77,12 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setTelefoneContato(editTelefone.getText().toString());
 
                 Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
+
+                listaCurso.putString("primeiroNome", pessoa.getPrimeiroNome());
+                listaCurso.putString("sobrenome", pessoa.getSobrenome());
+                listaCurso.putString("cursoDesejado", pessoa.getCursoDesejado());
+                listaCurso.putString("telefoneContato", pessoa.getTelefoneContato());
+                listaCurso.apply();
 
                 pessoaController.salvar(pessoa);
             }
