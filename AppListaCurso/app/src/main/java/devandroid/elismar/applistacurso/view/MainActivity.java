@@ -17,6 +17,7 @@ import devandroid.elismar.applistacurso.model.Pessoa;
 public class MainActivity extends AppCompatActivity {
 
     SharedPreferences preferences;
+    SharedPreferences.Editor listaCurso;
     public static final String  NOME_PREFERENCES = "pref_listacurso";
     PessoaController pessoaController;
     Pessoa pessoa;
@@ -34,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         preferences = getSharedPreferences(NOME_PREFERENCES, 0);
-        SharedPreferences.Editor listaCurso = preferences.edit();
+        listaCurso = preferences.edit();
 
         pessoaController = new PessoaController();
         pessoaController.toString();
@@ -67,6 +68,11 @@ public class MainActivity extends AppCompatActivity {
                 editSobrenome.setText("");
                 editCurso.setText("");
                 editTelefone.setText("");
+
+                Toast.makeText(MainActivity.this, "Dados excluídos", Toast.LENGTH_LONG).show();
+
+                listaCurso.clear();
+                listaCurso.apply();
             }
         });
 
