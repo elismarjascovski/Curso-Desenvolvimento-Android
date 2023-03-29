@@ -37,26 +37,28 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor listaCurso = preferences.edit();
 
         pessoaController = new PessoaController();
+        pessoaController.toString();
 
         pessoa = new Pessoa();
-        pessoa.setPrimeiroNome("Elismar");
-        pessoa.setSobrenome("Jascovski");
-        pessoa.setCursoDesejado("Android");
-        pessoa.setTelefoneContato("(62) 99918-7777");
+        pessoa.setPrimeiroNome(preferences.getString("primeiroNome", ""));
+        pessoa.setSobrenome(preferences.getString("sobrenome", ""));
+        pessoa.setCursoDesejado(preferences.getString("cursoDesejado", ""));
+        pessoa.setTelefoneContato(preferences.getString("telefoneContato", ""));
 
         editPrimeiroNome = findViewById(R.id.editPrimeiroNome);
         editSobrenome = findViewById(R.id.editSobrenome);
         editTelefone = findViewById(R.id.editTelefone);
         editCurso = findViewById(R.id.editCurso);
 
-        btnLimpar = findViewById(R.id.btnLimpar);
-        btnSalvar = findViewById(R.id.btnSalvar);
-        btnFinalizar = findViewById(R.id.btnFinalizar);
-
         editPrimeiroNome.setText(pessoa.getPrimeiroNome());
         editSobrenome.setText(pessoa.getSobrenome());
         editCurso.setText(pessoa.getCursoDesejado());
         editTelefone.setText(pessoa.getTelefoneContato());
+
+        btnLimpar = findViewById(R.id.btnLimpar);
+        btnSalvar = findViewById(R.id.btnSalvar);
+        btnFinalizar = findViewById(R.id.btnFinalizar);
+
 
         btnLimpar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                 pessoa.setCursoDesejado(editCurso.getText().toString());
                 pessoa.setTelefoneContato(editTelefone.getText().toString());
 
-                Toast.makeText(MainActivity.this, pessoa.toString(), Toast.LENGTH_LONG).show();
+                Toast.makeText(MainActivity.this, "Dados salvos", Toast.LENGTH_LONG).show();
 
                 listaCurso.putString("primeiroNome", pessoa.getPrimeiroNome());
                 listaCurso.putString("sobrenome", pessoa.getSobrenome());
