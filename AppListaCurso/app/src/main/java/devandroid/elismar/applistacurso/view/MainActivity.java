@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_spinner);
 
         pessoaController = new PessoaController(MainActivity.this);
         pessoaController.toString();
@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
         editSobrenome.setText(pessoa.getSobrenome());
         editCurso.setText(pessoa.getCursoDesejado());
         editTelefone.setText(pessoa.getTelefoneContato());
-
 
         btnLimpar = findViewById(R.id.btnLimpar);
         btnSalvar = findViewById(R.id.btnSalvar);
